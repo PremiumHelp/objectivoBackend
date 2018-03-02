@@ -1,0 +1,15 @@
+{
+  "User":{
+    "id":"",
+    "name":""
+    ,"email":"",
+    "password":""
+    ,"savedPhrases" :[SavedPhrases]
+
+  }
+  "SavedPhrase"{
+  "text" :"",
+  "fromLang":"",
+  "toLang":""
+}
+}

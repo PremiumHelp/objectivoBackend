@@ -1,0 +1,26 @@
+{
+  "name": "objectivo-backend",
+  "version": "1.0.0",
+  "description": "Backend for objectivo Xamarin Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amra12/objectivoBackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amra12/objectivoBackend/issues"
+  },
+  "homepage": "https://github.com/amra12/objectivoBackend#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "mongoose": "^5.0.7"
+  }
+}
