@@ -7,31 +7,26 @@ class UserController {
 
         this.basePath = '/user';
         //POST: for creating user : provided url + '/user/'
-        apiRouter.post(this.basePath + "/", this.signUp.bind(this));
-        // GET: for signing out The user : provided url + '/api/user/123abc' where 123abc is The id of The user to sign out
-        apiRouter.get(this.basePath + "/signOut", this.signOut.bind(this));
+        apiRouter.post(this.basePath + "/signUp", this.signUp.bind(this));
+
+
         // POST: for Singing in  : provided url + '/api/user/login'
         apiRouter.post(this.basePath + "/signIn", this.signIn.bind(this));
     }
 
-    signOut(req, res) {
 
-        var name = req.params.name;
-        return res.status(200).json({success: true, msg: 'Signed out successfully'});
-
-    }
 
     signUp(req, res) {
-        console.log('user controller signUp')
+        console.log('user controller signUp' )
 
-        if (!req.body.email || !req.body.password || !req.body.name) {
+        if (!req.body.Email || !req.body.Password || !req.body.Name) {
             res.status(400).json({success: false, msg: 'Please pass the information'});
 
         } else {
             var newUser = new User({
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password,
+                Name: req.body.Name,
+                Email: req.body.Email,
+                Password: req.body.Password,
 
             });
             // save the user
@@ -50,15 +45,16 @@ class UserController {
 
     signIn(req, res) {
 
+console.log('in log in  + ' + req.body.Email)
         User.findOne({
-            email: req.body.email
+            Email: req.body.Email
         }, function (err, user) {
             if (err) res.status(502).json({success: false, msg: err.message});
 
             if (!user) {
                 return res.status(403).json({success: false, msg: 'Sign in failed. Email not found.'});
             } else {
-                user.comparePassword(req.body.password, function (err, isMatch) {
+                user.comparePassword(req.body.Password, function (err, isMatch) {
                     if (isMatch && !err) {
                         res.status(200).json({success: true, name: user.name});
                     } else {

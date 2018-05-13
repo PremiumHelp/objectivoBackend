@@ -1,4 +1,4 @@
 module.exports = {
-    'secret': 'hakunamatata', // to encode are javascript web token (jwt)
+    'secret': 'hakunamatata',
     'database': 'mongodb://localhost/objectivo' //access to mongo db
 };

@@ -5,20 +5,20 @@ var bcrypt = require('bcrypt');
 
 // set up a mongoose model for our database  note: the model has already implemented functions which i will use
 var UserSchema = new Schema({
-    name: {
+    Name: {
         type: String,
         required: true
     },
-    email: {
+    Email: {
         type: String,
         unique : true,
         required: true
     },
-    password: {
+    Password: {
         type: String,
         required: true
     },
-    savedPhrases:
+    savedVocab:
         {
             type: [String]
         },
@@ -27,16 +27,16 @@ var UserSchema = new Schema({
 
 UserSchema.pre('save', function (next) {
     var user = this;
-    if (this.isModified('password') || this.isNew) {
+    if (this.isModified('Password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(user.password, salt, function (err, hash) {
+            bcrypt.hash(user.Password, salt, function (err, hash) {
                 if (err) {
                     return next(err);
                 }
-                user.password = hash;
+                user.Password = hash;
                 next();
             });
         });
@@ -46,7 +46,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
+    bcrypt.compare(passw, this.Password, function (err, isMatch) {
         if (err) {
             return cb(err);
         }
