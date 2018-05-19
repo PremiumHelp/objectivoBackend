@@ -6,7 +6,6 @@ class UserController {
 
 
         this.basePath = '/user';
-        //POST: for creating user : provided url + '/user/'
         apiRouter.post(this.basePath + "/signUp", this.signUp.bind(this));
 
 
@@ -32,12 +31,12 @@ class UserController {
             // save the user
             console.log('create new user: ' + newUser);
 
-            newUser.save(function (err) {
+            newUser.save(function (err, savedUser) {
                 if (err) {
                     res.status(409).json({success: false, msg: 'Email already exists'});
                 }
                 else {
-                    res.status(201).json({success: true, msg: 'Successful created new user.'});
+                    res.status(201).json({success: true, userId: savedUser._id});
                 }
             });
         }
@@ -45,25 +44,26 @@ class UserController {
 
     signIn(req, res) {
 
-console.log('in log in  + ' + req.body.Email)
+        console.log('in log in  + ' + req.body.Email)
         User.findOne({
             Email: req.body.Email
         }, function (err, user) {
             if (err) res.status(502).json({success: false, msg: err.message});
 
             if (!user) {
-                return res.status(403).json({success: false, msg: 'Sign in failed. Email not found.'});
+                return res.status(403).json({success: false, msg: 'Log in failed. Email not found.'});
             } else {
                 user.comparePassword(req.body.Password, function (err, isMatch) {
                     if (isMatch && !err) {
-                        res.status(200).json({success: true, name: user.name});
+                        res.status(200).json({success: true, userId: user._id});
                     } else {
-                        return res.status(401).json({success: false, msg: 'Sign in failed. Wrong password.'});
+                        return res.status(401).json({success: false, msg: 'Log in failed. Wrong password.'});
                     }
                 });
             }
         });
     }
+
 }
 
 
