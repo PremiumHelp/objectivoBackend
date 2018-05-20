@@ -12,8 +12,10 @@ class VocabController {
 
         // POST: for Singing in  : provided url + '/api/user/login'
         apiRouter.get(this.basePath + "/:userId", this.getAll.bind(this));
-    }
+        apiRouter.delete(this.basePath + "/:vocabId", this.delete.bind(this));
+        apiRouter.delete(this.basePath + "/deleteAll/:userId", this.deleteAll.bind(this));
 
+    }
 
 
     create(req, res) {
@@ -51,7 +53,7 @@ class VocabController {
 
         const userId = req.params.userId;
 
-        Vocab.find({userId:userId}, function (err, results) {
+        Vocab.find({userId: userId}, function (err, results) {
             if (err) {
                 res.status(500).json({success: false, msg: 'Error getting the vocab'});
                 console.log(err);
@@ -62,6 +64,41 @@ class VocabController {
             }
         });
     }
+
+    delete(req, res) {
+        const method = 'VocabController.delete';
+        const path = 'POST ' + this.basePath + '/';
+        console.info(method, 'Access to', path);
+
+        const vocabId = req.params.vocabId;
+
+        Vocab.find({_id: vocabId}).remove(function (err) {
+            if (err) {
+                res.status(500).json({success: false, msg: 'could not find the vocab'});
+            }
+            else {
+                res.sendStatus(200);
+            }
+        })
+    }
+
+    deleteAll(req, res) {
+        const method = 'VocabController.deleteAll';
+        const path = 'POST ' + this.basePath + '/';
+        console.info(method, 'Access to', path);
+
+        const userId = req.params.userId;
+
+        Vocab.find({userId: userId}).remove(function (err) {
+            if (err) {
+                res.status(500).json({success: false, msg: 'could not find the user vocab'});
+            }
+            else {
+                res.sendStatus(200);
+            }
+        })
+    }
+
 }
 
 
