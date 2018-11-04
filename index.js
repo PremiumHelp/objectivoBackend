@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var port = process.env.PORT || 4200;
 var UserController = require('./controllers/UserController');
 var VocabController = require('./controllers/VocabController');
-
+var GameController = require('./controllers/GameController');
 
 var databaseConfig = require('./config/database');
 const http = require('http');
@@ -37,6 +37,7 @@ app.use('', apiRoutes);
 
 new UserController(apiRoutes);
 new VocabController(apiRoutes);
+new GameController(apiRoutes);
 
 http.createServer(app).listen(appConfig.appPort, '0.0.0.0', function () {
     console.log('APIs on port ' + appConfig.appPort);

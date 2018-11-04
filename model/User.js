@@ -22,6 +22,11 @@ var UserSchema = new Schema({
         {
             type: [String]
         },
+    status:
+        {
+            type: String,
+            required:true
+        },
 
 });
 
