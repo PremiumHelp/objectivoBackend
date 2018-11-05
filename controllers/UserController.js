@@ -15,7 +15,7 @@ class UserController {
 
 
 
-    signUp(req, res) {
+    signUp(req, res){
         console.log('user controller signUp' )
 
         if (!req.body.Email || !req.body.Password || !req.body.Name) {
@@ -26,6 +26,7 @@ class UserController {
                 Name: req.body.Name,
                 Email: req.body.Email,
                 Password: req.body.Password,
+                status: 'nothing',
 
             });
             // save the user
@@ -41,6 +42,7 @@ class UserController {
             });
         }
     }
+
 
     signIn(req, res) {
 
