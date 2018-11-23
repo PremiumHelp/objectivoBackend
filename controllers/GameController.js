@@ -95,6 +95,7 @@ class GameController {
             allUsers = users;
             self.cleanUsers(firstPlayer, users)
         });
+
     }
 
     searchingForPlayer(firstPlayerId) {
@@ -105,7 +106,7 @@ class GameController {
             let self = this;
             self.changeStatus(firstPlayerId, 'searching for game', function (err, user) {
                 if (err || !user) {
-                    reject({success: false, error: 'UserSchema not found'})
+                    reject({success: false,err: err})
                     console.log(err + ' and this is the user id '+firstPlayerId);
                 } else {
                     self.promiseWhile(function () {
@@ -116,7 +117,7 @@ class GameController {
                     }).then(function () {
                         if ((listOfUsers.length == 0)) {
                             self.changeStatus(firstPlayerId, 'nothing', function (err, user) {
-                                if (err) reject({success: false, msg: 'UserSchema not found'});
+                                if (err) reject({success: false, err: err});
                                 else {
                                     reject({success: false, msg: 'Request timeout.'});
                                 }
@@ -127,10 +128,10 @@ class GameController {
                             console.log(listOfUsers);
                             var secondPlayerId = listOfUsers[0]._id;
                             self.changeStatus(firstPlayerId, 'playing', function (err, user) {
-                                if (err) reject({success: false, msg: 'UserSchema not found'});
+                                if (err) reject({success: false, err: err});
                                 else {
                                     self.changeStatus(secondPlayerId, 'playing', function (err, user) {
-                                        if (err) reject({success: false, msg: 'UserSchema not found'});
+                                        if (err) reject({success: false, err: err});
                                         else {
                                             return resolve({success: true, player1: firstPlayerId, player2: secondPlayerId});
                                         }

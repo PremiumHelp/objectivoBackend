@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // connect to MONGODB using mongoose
-mongoose.connect(databaseConfig.database);
-
+mongoose.connect(databaseConfig.database,{ useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
 
 // bundle FOR MY API ROOT
 var apiRoutes = express.Router();
@@ -25,7 +25,7 @@ var apiRoutes = express.Router();
 const props = {
     appInfo: {},
     appPort: 4200,
-    appHost: '192.168.0.106',
+    appHost: '192.168.1.57',
 };
 const appConfig = require('./appConfig.js').getConfig(props);
 app.use(bodyParser.json());
