@@ -25,7 +25,7 @@ var apiRoutes = express.Router();
 const props = {
     appInfo: {},
     appPort: 4200,
-    appHost: '192.168.1.57',
+    appHost: '152.66.171.128',
 };
 const appConfig = require('./appConfig.js').getConfig(props);
 app.use(bodyParser.json());
